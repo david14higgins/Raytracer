@@ -9,10 +9,11 @@ GEOM_DIR = Geometry
 LIGHT_DIR = Lighting
 MAT_DIR = Materials
 UTIL_DIR = Utilities
+IO_DIR = IO
 
 # Source files and object files
 SRCS = $(wildcard $(SRC_DIR)/*.cpp $(CORE_DIR)/*.cpp $(GEOM_DIR)/*.cpp \
-               $(LIGHT_DIR)/*.cpp $(MAT_DIR)/*.cpp $(UTIL_DIR)/*.cpp)
+               $(LIGHT_DIR)/*.cpp $(MAT_DIR)/*.cpp $(UTIL_DIR)/*.cpp $(IO_DIR)/*.cpp)
 OBJS = $(SRCS:.cpp=.o)
 
 # Executable name

@@ -41,7 +41,7 @@ const Scene& Renderer::getScene() const {
 void Renderer::writePPM(const std::vector<std::vector<Color>>& pixelColors) {
     try {
         // Create output directory if it doesn't exist
-        std::filesystem::path outputDir = "output";
+        std::filesystem::path outputDir = "renders";
         if (!std::filesystem::exists(outputDir)) {
             std::filesystem::create_directories(outputDir);
         }
@@ -87,27 +87,11 @@ void Renderer::renderScene() {
 
     // Create the pixel color buffer
     std::vector<std::vector<Color>> pixelColors(height, std::vector<Color>(width));
-
-    // Calculate total pixels and pixels per 10%
-    int totalPixels = width * height;
-    int pixelsPerTenth = totalPixels / 10;
-    int pixelsCompleted = 0;
-    int lastPercentageReported = 0;
-
-
     // Render pixels   
     for (int y = 0; y < height; ++y) {
         for (int x = 0; x < width; ++x) {
             Ray ray = camera.generateRay(x, y);
             pixelColors[y][x] = renderPixel(ray, 0);
-
-            // Update progress
-            pixelsCompleted++;
-            int currentPercentage = (pixelsCompleted * 100) / totalPixels;
-            if (currentPercentage / 10 > lastPercentageReported) {
-                lastPercentageReported = currentPercentage / 10;
-                std::cout << "Rendering progress: " << (lastPercentageReported * 10) << "%" << std::endl;
-            }
         }            
     }    
     writePPM(pixelColors);

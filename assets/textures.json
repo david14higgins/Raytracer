@@ -78,9 +78,7 @@
                             "isreflective":false,
                             "reflectivity":1.0,
                             "isrefractive":false,
-                            "refractiveindex":1.0,
-                            "hasTexture":true,
-                            "textureFilename":"sampletexture.ppm"
+                            "refractiveindex":1.0
                         } 
                 },
                 { 
