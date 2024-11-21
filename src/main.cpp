@@ -1,6 +1,8 @@
 #include <iostream>
 #include <chrono>
 #include "../IO/IO.h"
+#include "../Core/Renderer.h"
+#include "../Materials/Color.h"
 
 
 int main(int argc, char* argv[]) {
@@ -19,13 +21,14 @@ int main(int argc, char* argv[]) {
         for (int i = 2; i < argc; i++) {
             if (std::string(argv[i]) == "--bvh") {
                 useBVH = true;
-                
                 break;
             }
         }
         std::cout << (useBVH ? "BVH acceleration enabled" : "BVH acceleration disabled") << std::endl;
 
         Renderer renderer = IO::loadRenderer(filename, useBVH);
+        std::vector<std::vector<Color>> renderedScene = renderer.renderScene();
+        IO::writePPM(renderedScene);
         
         auto start = std::chrono::high_resolution_clock::now();
         renderer.renderScene();

@@ -22,7 +22,7 @@ public:
     const Scene& getScene() const;  // New accessor for Scene
 
     // Method to render the scene
-    void renderScene();
+    std::vector<std::vector<Color>> renderScene();
 
     // Method to render a single pixel with default currentBounce
     Color renderPixel(const Ray& ray, int currentBounce = 0);
@@ -32,9 +32,7 @@ public:
 
     // Method to return scene details as a string
     std::string toString() const;
-
-    void writePPM(const std::vector<std::vector<Color>>& pixelColors);
-
+    
 private:
     int nbounces;
     RenderMode rendermode;

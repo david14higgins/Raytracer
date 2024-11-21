@@ -38,49 +38,10 @@ const Scene& Renderer::getScene() const {
     return scene;
 }
 
-void Renderer::writePPM(const std::vector<std::vector<Color>>& pixelColors) {
-    try {
-        // Create output directory if it doesn't exist
-        std::filesystem::path outputDir = "renders";
-        if (!std::filesystem::exists(outputDir)) {
-            std::filesystem::create_directories(outputDir);
-        }
 
-        // Open the file for writing
-        std::filesystem::path outputPath = outputDir / "test.ppm";
-        std::ofstream outFile(outputPath);
-        
-        if (!outFile.is_open()) {
-            throw std::runtime_error("Could not open file for writing: " + outputPath.string());
-        }
-
-        int height = pixelColors.size();
-        int width = pixelColors[0].size();
-        
-        // Write the PPM header
-        outFile << "P3\n";  // Plain text PPM format
-        outFile << "# Created by Renderer\n";  // Optional comment line
-        outFile << width << " " << height << "\n";  // Image dimensions
-        outFile << "255\n";  // Max color value (for 8-bit color depth)
-
-        // Write the pixel data (row by row)
-        for (int y = 0; y < height; ++y) {
-            for (int x = 0; x < width; ++x) {
-                outFile << pixelColors[y][x].toString() << " ";
-            }
-            outFile << "\n";  // Newline after each row
-        }
-        
-        outFile.close();
-        std::cout << "Image successfully written to: " << outputPath << std::endl;
-    }
-    catch (const std::exception& e) {
-        std::cerr << "Error writing PPM file: " << e.what() << std::endl;
-    }
-}
 
 // Method to render the scene and return a 2D array of pixel colors
-void Renderer::renderScene() {
+std::vector<std::vector<Color>> Renderer::renderScene() {
     // Get dimensions from camera
     int width = camera.getWidth();
     int height = camera.getHeight();
@@ -94,7 +55,8 @@ void Renderer::renderScene() {
             pixelColors[y][x] = renderPixel(ray, 0);
         }            
     }    
-    writePPM(pixelColors);
+    
+    return pixelColors;
 }
 
 

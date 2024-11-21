@@ -13,6 +13,7 @@ using json = nlohmann::json;
 class IO {
 public:
     static Renderer loadRenderer(const std::string& filename, bool useBVH);
+    static void writePPM(const std::vector<std::vector<Color>>& pixelColors);
 
 private:
     static Material parseMaterial(const json& materialData);
