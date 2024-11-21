@@ -8,13 +8,24 @@ int main(int argc, char* argv[]) {
         if (argc < 2) {
             std::cout << "Usage: " << argv[0] << " <scene_file.json>" << std::endl;
             std::cout << "Please provide a path to a scene file." << std::endl;
+            std::cout << "Options:" << std::endl;
+            std::cout << "  --bvh    Enable BVH acceleration structure" << std::endl;
             return 0;
         }
 
         std::string filename = argv[1];
-        bool useBVH = false;  // You can add this as a command line argument later if needed
-        
-        Renderer renderer = IO::loadRendererDetails(filename, useBVH);
+
+        bool useBVH = false;
+        for (int i = 2; i < argc; i++) {
+            if (std::string(argv[i]) == "--bvh") {
+                useBVH = true;
+                
+                break;
+            }
+        }
+        std::cout << (useBVH ? "BVH acceleration enabled" : "BVH acceleration disabled") << std::endl;
+
+        Renderer renderer = IO::loadRenderer(filename, useBVH);
         
         auto start = std::chrono::high_resolution_clock::now();
         renderer.renderScene();

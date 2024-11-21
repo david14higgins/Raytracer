@@ -12,7 +12,7 @@ using json = nlohmann::json;
 
 class IO {
 public:
-    static Renderer loadRendererDetails(const std::string& filename, bool useBVH);
+    static Renderer loadRenderer(const std::string& filename, bool useBVH);
 
 private:
     static Material parseMaterial(const json& materialData);

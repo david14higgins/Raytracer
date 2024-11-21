@@ -18,8 +18,8 @@
 
 
 // Constructor that takes a Scene object
-Renderer::Renderer(int nbounces, RenderMode rendermode, const Camera& camera, const Scene& scene)
-    : nbounces(nbounces), rendermode(rendermode), camera(camera), scene(scene) {}
+Renderer::Renderer(int nbounces, RenderMode rendermode, const Camera& camera, const Scene& scene, bool useBVH)
+    : nbounces(nbounces), rendermode(rendermode), camera(camera), scene(scene), useBVH(useBVH) {}
 
 // Accessor methods
 int Renderer::getNbounces() const {
@@ -157,9 +157,8 @@ Color Renderer::renderPixel(const Ray& ray, int currentBounce) {
     std::shared_ptr<Shape> closestShape = nullptr;
     Vector3 intersectionPoint;
     Vector3 normal;
-    bool useBVH = false;
 
-   if(!useBVH){
+    if(!useBVH){
         // Find the closest intersection point
         for (const auto& shape : scene.getShapes()) {
             float distance;
