@@ -1,6 +1,6 @@
 # Compiler
 CXX = g++
-CXXFLAGS = -Wall -Wextra -std=c++17 -Iinclude -IC:/tools/vcpkg/vcpkg/installed/x64-windows/include
+CXXFLAGS = -Wall -Wextra -std=c++17 -Idependencies
 
 # Directories
 SRC_DIR = src
@@ -28,8 +28,9 @@ $(TARGET): $(OBJS)
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# Clean up object files and the executable
+# Clean up object files, executable, and renders
 clean:
-	-del /Q /F src\main.o Core\*.o Geometry\*.o Lighting\*.o Materials\*.o Utilities\*.o raytracer.exe 2>NUL
+	-del /Q /F src\main.o Core\*.o Geometry\*.o Lighting\*.o Materials\*.o Utilities\*.o IO\*.o raytracer.exe 2>NUL
+	-rd /S /Q renders 2>NUL
 
 .PHONY: all clean
