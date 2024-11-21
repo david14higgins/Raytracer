@@ -178,11 +178,17 @@ Renderer loadRendererDetails(const json& j) {
     }
 }
 
-int main() {
+int main(int argc, char* argv[]) {
    try {
-        std::string filename = "assets/cube_scene_10x10x10.json";
-       
-        std::ifstream file(filename);
+        if (argc < 2) {
+            std::cout << "Usage: " << argv[0] << " <scene_file.json>" << std::endl;
+            std::cout << "Please provide a path to a scene file." << std::endl;
+            return 0;  // Exit gracefully
+        }
+
+        std::string filename = argv[1];
+        std::string filepath = "assets/" + filename;
+        std::ifstream file(filepath);
 
         // Check if the file is open
         if (!file.is_open()) {
